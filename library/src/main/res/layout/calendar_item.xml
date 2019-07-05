@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_width="@dimen/dp60">
+
+    <TextView
+        android:id="@+id/dateLabel"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30"
+        android:layout_marginTop="@dimen/dp6"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/backgroud_circle_selected"
+        tools:text="1" />
+
+    <FrameLayout
+        android:layout_width="@dimen/dp48"
+        android:layout_height="@dimen/dp48"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barrier">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/icon1"
+                android:layout_width="@dimen/dp24"
+                android:layout_height="@dimen/dp24"
+                android:importantForAccessibility="no"
+                app:layout_constraintBottom_toTopOf="@id/icon3"
+                app:layout_constraintEnd_toStartOf="@id/icon2"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                tools:src="@drawable/ic_keyboard_arrow_left_24dp" />
+
+            <ImageView
+                android:id="@+id/icon2"
+                android:layout_width="@dimen/dp24"
+                android:layout_height="@dimen/dp24"
+                android:importantForAccessibility="no"
+                app:layout_constraintBottom_toTopOf="@id/icon4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/icon1"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                tools:visibility="visible"
+                tools:src="@drawable/ic_keyboard_arrow_right_24dp" />
+
+            <ImageView
+                android:id="@+id/icon3"
+                android:layout_width="@dimen/dp24"
+                android:layout_height="@dimen/dp24"
+                android:importantForAccessibility="no"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/barrier3"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/barrier2"
+                app:layout_constraintVertical_bias="0.5"
+                tools:visibility="visible"
+                tools:src="@android:drawable/ic_btn_speak_now" />
+
+            <ImageView
+                android:id="@+id/icon4"
+                android:layout_width="@dimen/dp24"
+                android:layout_height="@dimen/dp24"
+                android:importantForAccessibility="no"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/icon3"
+                app:layout_constraintTop_toBottomOf="@id/barrier2"
+                app:layout_constraintVertical_bias="0.5"
+                tools:visibility="gone"
+                tools:src="@android:drawable/ic_input_add" />
+
+            <ImageView
+                android:id="@+id/iconMore"
+                android:layout_width="@dimen/dp24"
+                android:layout_height="@dimen/dp24"
+                android:layout_margin="@dimen/dp2"
+                android:importantForAccessibility="no"
+                android:src="@drawable/ic_more_horiz_24dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@id/icon3"
+                app:layout_constraintTop_toBottomOf="@id/barrier2"
+                app:layout_constraintVertical_bias="0.5"
+                tools:visibility="gone" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="icon1,icon2" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="left"
+                app:constraint_referenced_ids="icon4,iconMore" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="dateLabel"
+        tools:layout_editor_absoluteY="31dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

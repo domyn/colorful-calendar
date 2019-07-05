@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Colorful calendar</string>
+    <string name="calendar_previous_month">Previous month</string>
+    <string name="calendar_next_month">Next month</string>
+
+    <string name="calendar_monday">Mo</string>
+    <string name="calendar_tuesday">Tu</string>
+    <string name="calendar_wednesday">W</string>
+    <string name="calendar_thursday">Th</string>
+    <string name="calendar_friday">Fr</string>
+    <string name="calendar_saturday">Sa</string>
+    <string name="calendar_sunday">Su</string>
+
+    <array name="calendar_months_array">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </array>
+</resources>

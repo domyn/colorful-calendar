@@ -1,0 +1,14 @@
+<resources>
+    <declare-styleable name="CalendarView">
+        <attr name="headerButtonTint" format="color"/>
+        <attr name="headerTextColor" format="color"/>
+        <attr name="headerBackgroundColor" format="color"/>
+        <attr name="previousButtonSrc" format="integer" />
+        <attr name="nextButtonSrc" format="integer" />
+        <attr name="daysLabelsColor" format="color"/>
+        <attr name="todayLabelColor" format="color"/>
+        <attr name="moreIconTint" format="color"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="anotherMonthAlpha" format="color" />
+    </declare-styleable>
+</resources>
