@@ -1,6 +1,7 @@
 package pl.domyno.colorfulcalendar.internal
 
 import android.content.Context
+import android.graphics.PorterDuff
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,6 +64,7 @@ class DayAdapter(context: Context,
         if (icons.size > 4) {
             iconViews[3].visibility = View.INVISIBLE
             iconMore.visibility = View.VISIBLE
+            iconMore.setColorFilter(properties.moreIconTint, PorterDuff.Mode.MULTIPLY)
         }
     }
 

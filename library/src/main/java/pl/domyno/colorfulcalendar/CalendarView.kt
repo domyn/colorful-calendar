@@ -7,11 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.viewpager.widget.ViewPager
-import kotlinx.android.synthetic.main.calendar_item.view.*
 import kotlinx.android.synthetic.main.calendar_view.view.*
 import pl.domyno.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
 import pl.domyno.colorfulcalendar.internal.PageAdapter
-import pl.domyno.colorfulcalendar.utils.date
 import pl.domyno.colorfulcalendar.utils.month
 import pl.domyno.colorfulcalendar.utils.year
 import java.util.*

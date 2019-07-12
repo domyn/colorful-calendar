@@ -28,9 +28,10 @@ class CalendarActivity : AppCompatActivity() {
 
         val dates = (0..16).map { randomCalendar }
         val icons = dates.map { it to random.nextInt(1, 6) }.toMap().mapValues { (0..it.value).map { randomDrawable } }
-        calendarView.properties.daysLabelsColor = ContextCompat.getColor(applicationContext, android.R.color.holo_purple)
-        calendarView.properties.dayColors = dates.map { it to ContextCompat.getColor(applicationContext, R.color.red) }.toMap()
-        calendarView.properties.icons = icons
+        calendarView.properties.update {
+            dayColors = dates.map { it to ContextCompat.getColor(applicationContext, R.color.red) }.toMap()
+            this.icons = icons
+        }
     }
 
 }

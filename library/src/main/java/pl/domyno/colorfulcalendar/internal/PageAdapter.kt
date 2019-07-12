@@ -11,10 +11,13 @@ import androidx.viewpager.widget.PagerAdapter
 import pl.domyno.colorfulcalendar.CalendarProperties
 import pl.domyno.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
 import pl.domyno.colorfulcalendar.R
-import pl.domyno.colorfulcalendar.utils.*
+import pl.domyno.colorfulcalendar.utils.date
+import pl.domyno.colorfulcalendar.utils.month
+import pl.domyno.colorfulcalendar.utils.setDayViewLabel
+import pl.domyno.colorfulcalendar.utils.setSelectedDayViewLabel
 import java.util.*
 
-class PageAdapter(val context: Context, val properties: CalendarProperties) : PagerAdapter() {
+class PageAdapter(private val context: Context, private val properties: CalendarProperties) : PagerAdapter() {
     private var gridView: GridView? = null
 
     override fun isViewFromObject(view: View, `object`: Any) = view == `object`
@@ -32,7 +35,7 @@ class PageAdapter(val context: Context, val properties: CalendarProperties) : Pa
         return gridView!!
     }
 
-    private fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+    private fun onItemClick(parent: AdapterView<*>, view: View, position: Int, @Suppress("UNUSED_PARAMETER") id: Long) {
         val calendar = properties.initialDate.also { it.time = parent.getItemAtPosition(position) as Date }
         val currentMonth = (parent.adapter as DayAdapter).month
         if (calendar.month != currentMonth)

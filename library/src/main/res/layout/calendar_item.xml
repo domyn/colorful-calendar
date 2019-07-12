@@ -15,12 +15,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/backgroud_circle_selected"
+        tools:background="@drawable/background_circle_selected"
         tools:text="1" />
 
     <FrameLayout
-        android:layout_width="@dimen/dp48"
-        android:layout_height="@dimen/dp48"
+        android:layout_width="@dimen/dp40"
+        android:layout_height="@dimen/dp40"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,8 +32,8 @@
 
             <ImageView
                 android:id="@+id/icon1"
-                android:layout_width="@dimen/dp24"
-                android:layout_height="@dimen/dp24"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
                 android:importantForAccessibility="no"
                 app:layout_constraintBottom_toTopOf="@id/icon3"
                 app:layout_constraintEnd_toStartOf="@id/icon2"
@@ -45,8 +45,8 @@
 
             <ImageView
                 android:id="@+id/icon2"
-                android:layout_width="@dimen/dp24"
-                android:layout_height="@dimen/dp24"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
                 android:importantForAccessibility="no"
                 app:layout_constraintBottom_toTopOf="@id/icon4"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -59,8 +59,8 @@
 
             <ImageView
                 android:id="@+id/icon3"
-                android:layout_width="@dimen/dp24"
-                android:layout_height="@dimen/dp24"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
                 android:importantForAccessibility="no"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/barrier3"
@@ -73,8 +73,8 @@
 
             <ImageView
                 android:id="@+id/icon4"
-                android:layout_width="@dimen/dp24"
-                android:layout_height="@dimen/dp24"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
                 android:importantForAccessibility="no"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -87,11 +87,11 @@
 
             <ImageView
                 android:id="@+id/iconMore"
-                android:layout_width="@dimen/dp24"
-                android:layout_height="@dimen/dp24"
+                android:layout_width="@dimen/dp20"
+                android:layout_height="@dimen/dp20"
                 android:layout_margin="@dimen/dp2"
                 android:importantForAccessibility="no"
-                android:src="@drawable/ic_more_horiz_24dp"
+                android:src="@drawable/ic_more_horizontal_24dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

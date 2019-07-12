@@ -18,7 +18,7 @@ fun setDayViewLabel(day: Calendar, view: View, properties: CalendarProperties, c
 fun setSelectedDayViewLabel(day: Calendar, view: View, properties: CalendarProperties) {
     val color = calculateLabelColor(day, properties, day.month)
     val dateLabel = view.findViewById<TextView>(R.id.dateLabel)
-    dateLabel.background = properties.context.getDrawable(R.drawable.backgroud_circle_selected)
+    dateLabel.background = properties.context.getDrawable(R.drawable.background_circle_selected)
             ?.also { it.setColorFilter(color, PorterDuff.Mode.MULTIPLY) }
 
 }
@@ -26,7 +26,7 @@ fun setSelectedDayViewLabel(day: Calendar, view: View, properties: CalendarPrope
 fun setTodayViewLabel(day: Calendar, view: View, properties: CalendarProperties) {
     val color = calculateLabelColor(day, properties, day.month)
     val dateLabel = view.findViewById<TextView>(R.id.dateLabel)
-    dateLabel.background = properties.context.getDrawable(R.drawable.backgroud_circle_today)
+    dateLabel.background = properties.context.getDrawable(R.drawable.background_circle_today)
             ?.also { it.setColorFilter(color, PorterDuff.Mode.MULTIPLY) }
     dateLabel.setTextColor(properties.todayLabelColor)
 }
