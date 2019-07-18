@@ -10,10 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import pl.domyno.colorfulcalendar.CalendarProperties
 import pl.domyno.colorfulcalendar.R
-import pl.domyno.colorfulcalendar.utils.date
-import pl.domyno.colorfulcalendar.utils.dayOfMonth
-import pl.domyno.colorfulcalendar.utils.setDayViewLabel
-import pl.domyno.colorfulcalendar.utils.setTodayViewLabel
+import pl.domyno.colorfulcalendar.utils.*
 import java.util.*
 
 
@@ -46,14 +43,17 @@ class DayAdapter(context: Context,
         return view
     }
 
-
     private fun setIcons(day: Calendar, iconViews: List<ImageView>, iconMore: ImageView) {
         val icons = properties.icons[day].orEmpty()
         for (i in 0..3) {
             if (icons.size <= i)
                 iconViews[i].visibility = View.GONE
             else
-                iconViews[i].setImageDrawable(icons[i])
+                iconViews[i].also {
+                    it.setImageDrawable(icons[i])
+                    if (day.month != month)
+                        it.alpha = properties.iconAlpha
+                }
         }
 
         if (icons.size == 3) {
@@ -65,6 +65,8 @@ class DayAdapter(context: Context,
             iconViews[3].visibility = View.INVISIBLE
             iconMore.visibility = View.VISIBLE
             iconMore.setColorFilter(properties.moreIconTint, PorterDuff.Mode.MULTIPLY)
+            if (day.month != month)
+                iconMore.alpha = properties.iconAlpha
         }
     }
 

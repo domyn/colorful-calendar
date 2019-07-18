@@ -40,7 +40,11 @@ class CalendarProperties(val context: Context, typedArray: TypedArray, private v
             typedArray.getColor(R.styleable.CalendarView_backgroundColor, ContextCompat.getColor(context, android.R.color.transparent))
 
     var anotherMonthAlpha: Int = typedArray.getColor(R.styleable.CalendarView_anotherMonthAlpha, ContextCompat.getColor(context, R.color.alpha50)) or 0x00FFFFFF
-        set(value) { field = value or 0x00FFFFFF }
+        set(value) {
+            field = value or 0x00FFFFFF
+            @Suppress("EXPERIMENTAL_API_USAGE")
+            iconAlpha = field.toUInt().toFloat() / 0xFFFFFFFF
+        }
 
     var onPreviousPageChangeListener: CalendarView.OnPageChangeListener? = null
     var onNextPageChangeListener: CalendarView.OnPageChangeListener? = null
@@ -52,6 +56,10 @@ class CalendarProperties(val context: Context, typedArray: TypedArray, private v
     private val firstDateCalendar = Calendar.getInstance().resetToMidnight()
     val initialDate: Calendar
         get() = firstDateCalendar.clone() as Calendar
+
+    @Suppress("EXPERIMENTAL_API_USAGE")
+    internal var iconAlpha: Float = anotherMonthAlpha.toUInt().toFloat() / 0xFFFFFFFF
+        private set
 
     internal val minimumDate = initialDate.also { it.add(Calendar.MONTH, -(CALENDAR_SIZE / 2)) }
     internal val maximumDate = initialDate.also { it.add(Calendar.MONTH, CALENDAR_SIZE / 2) }

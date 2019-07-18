@@ -70,6 +70,7 @@ class CalendarView : LinearLayout {
                     month > properties.maximumDate -> calendarMonthViewPager.currentItem = position - 1
                     else -> {
                         setHeaderName(month)
+                        setButtonLocks(month)
                         if (position < currentPage)
                             properties.onPreviousPageChangeListener?.onChange()
                         else
@@ -84,6 +85,13 @@ class CalendarView : LinearLayout {
         applyStyleProperties()
         setHeaderName(properties.initialDate)
         calendarMonthViewPager.currentItem = currentPage
+    }
+
+    private fun setButtonLocks(month: Calendar) {
+        val previousMonth = (month.clone() as Calendar).also { it.add(Calendar.MONTH, -1) }
+        val nextMonth = (month.clone() as Calendar).also { it.add(Calendar.MONTH, 1) }
+        previousButton.isEnabled = previousMonth >= properties.minimumDate
+        nextButton.isEnabled = nextMonth <= properties.maximumDate
     }
 
     @SuppressLint("SetTextI18n")
@@ -106,6 +114,8 @@ class CalendarView : LinearLayout {
     }
 
     private fun onPreviousButtonClick(@Suppress("UNUSED_PARAMETER") view: View?) {
+        val month = properties.initialDate.also { it.add(Calendar.MONTH, currentPage - 1 - CALENDAR_SIZE / 2) }
+        setButtonLocks(month)
         currentPage--
         calendarMonthViewPager.currentItem = currentPage
         properties.onPreviousPageChangeListener?.onChange()
@@ -113,6 +123,8 @@ class CalendarView : LinearLayout {
     }
 
     private fun onNextButtonClick(@Suppress("UNUSED_PARAMETER") view: View?) {
+        val month = properties.initialDate.also { it.add(Calendar.MONTH, currentPage + 1 - CALENDAR_SIZE / 2) }
+        setButtonLocks(month)
         currentPage++
         calendarMonthViewPager.currentItem = currentPage
         properties.onNextPageChangeListener?.onChange()
