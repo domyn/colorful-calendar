@@ -56,23 +56,24 @@ class PageAdapter(private val context: Context, private val properties: Calendar
     }
 
     private fun loadMonthView(position: Int) {
-        val calendar = properties.initialDate.also {
-            it.add(Calendar.MONTH, position - CALENDAR_SIZE / 2)
+        val thisMonth = properties.initialDate.also { it.add(Calendar.MONTH, position - CALENDAR_SIZE / 2) }
+        val calendar = (thisMonth.clone() as Calendar).also {
             it.set(Calendar.DAY_OF_MONTH, 1)
             val dayOfWeek = it.get(Calendar.DAY_OF_WEEK)
             val firstCell = (if (dayOfWeek < it.firstDayOfWeek) 7 else 0) + dayOfWeek - it.firstDayOfWeek
             it.add(Calendar.DAY_OF_MONTH, -firstCell)
         }
 
-        // 42 cells on page
-        val days = (0..41).map { i ->
+        // calculate cells on page
+        val cells = if ((calendar.clone() as Calendar).also { it.add(Calendar.DAY_OF_MONTH, 35) }.month != thisMonth.month) 35 else 42
+
+        val days = (0 until cells).map { i ->
             (calendar.clone() as Calendar).also {
                 it.add(Calendar.DAY_OF_MONTH, i)
             }.time!!
         }
 
-        gridView?.adapter = DayAdapter(context, properties, days,
-                properties.initialDate.also { it.add(Calendar.MONTH, position - CALENDAR_SIZE / 2) }.get(Calendar.MONTH))
+        gridView?.adapter = DayAdapter(context, properties, days, thisMonth.month)
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {

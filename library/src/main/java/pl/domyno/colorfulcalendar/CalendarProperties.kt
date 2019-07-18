@@ -39,6 +39,9 @@ class CalendarProperties(val context: Context, typedArray: TypedArray, private v
     var backgroundColor: Int =
             typedArray.getColor(R.styleable.CalendarView_backgroundColor, ContextCompat.getColor(context, android.R.color.transparent))
 
+    var separatorColor: Int =
+            typedArray.getColor(R.styleable.CalendarView_separatorColor, ContextCompat.getColor(context, android.R.color.black))
+
     var anotherMonthAlpha: Int = typedArray.getColor(R.styleable.CalendarView_anotherMonthAlpha, ContextCompat.getColor(context, R.color.alpha50)) or 0x00FFFFFF
         set(value) {
             field = value or 0x00FFFFFF

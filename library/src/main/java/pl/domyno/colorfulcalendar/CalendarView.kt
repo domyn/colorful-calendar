@@ -106,6 +106,7 @@ class CalendarView : LinearLayout {
         nextButton.setImageDrawable(properties.nextButtonSrc)
         listOf(previousButton, nextButton).forEach { it.setColorFilter(properties.headerButtonTint) }
         currentDateLabel.setTextColor(properties.headerTextColor)
+        separator.setBackgroundColor(properties.separatorColor)
 
         // labels
         this.setBackgroundColor(properties.backgroundColor)

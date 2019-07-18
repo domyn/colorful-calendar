@@ -9,6 +9,7 @@
         <attr name="todayLabelColor" format="color"/>
         <attr name="moreIconTint" format="color"/>
         <attr name="backgroundColor" format="color"/>
+        <attr name="separatorColor" format="color"/>
         <attr name="anotherMonthAlpha" format="color" />
     </declare-styleable>
 </resources>

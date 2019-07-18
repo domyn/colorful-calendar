@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import pl.domyno.colorfulcalendar.CalendarProperties
 import pl.domyno.colorfulcalendar.R
 import pl.domyno.colorfulcalendar.utils.*
@@ -39,6 +40,7 @@ class DayAdapter(context: Context,
             setDayViewLabel(day, view, properties, month)
 
         dateLabel.text = day.dayOfMonth.toString()
+        view.findViewById<View>(R.id.separator).setBackgroundColor(properties.separatorColor)
 
         return view
     }
@@ -60,7 +62,6 @@ class DayAdapter(context: Context,
             iconViews[3].visibility = View.INVISIBLE
             iconMore.visibility = View.INVISIBLE
         }
-
         if (icons.size > 4) {
             iconViews[3].visibility = View.INVISIBLE
             iconMore.visibility = View.VISIBLE

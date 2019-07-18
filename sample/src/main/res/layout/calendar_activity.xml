@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@android:color/background_dark"
     tools:context=".CalendarActivity">
 
     <pl.domyno.colorfulcalendar.CalendarView
@@ -12,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        app:headerBackgroundColor="@color/sampleDark"/>
+        app:headerBackgroundColor="@color/sampleDark"
+        app:backgroundColor="@android:color/white"/>
 
 </LinearLayout>
