@@ -44,8 +44,8 @@ class CalendarView : LinearLayout {
     fun refresh() {
         applyStyleProperties()
         calendarMonthViewPager.adapter?.notifyDataSetChanged()
+        calendarMonthViewPager.currentItem = CALENDAR_SIZE / 2
         setHeaderName(properties.initialDate)
-        calendarMonthViewPager.currentItem = currentPage
     }
 
     private fun init(attrs: AttributeSet?) {
