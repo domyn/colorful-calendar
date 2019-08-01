@@ -12,6 +12,7 @@
         android:layout_height="@dimen/dp30"
         android:layout_marginTop="@dimen/dp6"
         android:gravity="center"
+        android:padding="@dimen/dp2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

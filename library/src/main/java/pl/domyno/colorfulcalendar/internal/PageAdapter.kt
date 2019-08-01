@@ -72,6 +72,7 @@ class PageAdapter(private val context: Context, private val properties: Calendar
         }
 
         gridView.adapter = DayAdapter(context, properties, days, thisMonth.month)
+        gridView.tag = position
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
