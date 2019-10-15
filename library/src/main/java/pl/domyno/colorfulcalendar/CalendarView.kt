@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.calendar_view.view.*
 import pl.domyno.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
@@ -28,6 +29,7 @@ class CalendarView : LinearLayout {
         private set
 
     private var currentPage = CALENDAR_SIZE / 2
+    private lateinit var daysLabels: List<TextView>
 
     constructor(context: Context) : super(context) {
         init(null)
@@ -54,6 +56,7 @@ class CalendarView : LinearLayout {
         typedArray.recycle()
 
         LayoutInflater.from(context).inflate(R.layout.calendar_view, this)
+        daysLabels = listOf(label1stDay, label2ndDay, label3rdDay, label4thDay, label5thDay, label6thDay, label7thDay)
 
         previousButton.setOnClickListener(this::onPreviousButtonClick)
         nextButton.setOnClickListener(this::onNextButtonClick)
@@ -84,7 +87,25 @@ class CalendarView : LinearLayout {
 
         applyStyleProperties()
         setHeaderName(properties.initialDate)
+        setDayLabels()
         calendarMonthViewPager.currentItem = currentPage
+    }
+
+    private fun setDayLabels() {
+        var dayOfTheWeek = properties.initialDate.firstDayOfWeek
+        daysLabels.forEach {
+            it.text = context.getString(when (dayOfTheWeek) {
+                Calendar.MONDAY -> R.string.calendar_monday
+                Calendar.TUESDAY -> R.string.calendar_tuesday
+                Calendar.WEDNESDAY -> R.string.calendar_wednesday
+                Calendar.THURSDAY -> R.string.calendar_thursday
+                Calendar.FRIDAY -> R.string.calendar_friday
+                Calendar.SATURDAY -> R.string.calendar_saturday
+                else -> R.string.calendar_sunday
+            })
+            dayOfTheWeek = (dayOfTheWeek + 1).rem(7)
+        }
+
     }
 
     private fun setButtonLocks(month: Calendar) {
@@ -110,8 +131,7 @@ class CalendarView : LinearLayout {
 
         // labels
         this.setBackgroundColor(properties.backgroundColor)
-        listOf(labelMonday, labelTuesday, labelWednesday, labelThursday, labelFriday,
-                labelSaturday, labelSunday).forEach { it.setTextColor(properties.daysLabelsColor) }
+        daysLabels.forEach { it.setTextColor(properties.daysLabelsColor) }
     }
 
     private fun onPreviousButtonClick(@Suppress("UNUSED_PARAMETER") view: View?) {

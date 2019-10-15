@@ -53,81 +53,80 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/labelMonday"
+            android:id="@+id/label1stDay"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp45"
             android:gravity="center"
-            android:text="@string/calendar_monday"
-            app:layout_constraintEnd_toStartOf="@+id/labelTuesday"
+            tools:text="@string/calendar_monday"
+            app:layout_constraintEnd_toStartOf="@+id/label2ndDay"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/labelTuesday"
+            android:id="@+id/label2ndDay"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp45"
             android:gravity="center"
-            android:text="@string/calendar_tuesday"
-            app:layout_constraintEnd_toStartOf="@+id/labelWednesday"
+            tools:text="@string/calendar_tuesday"
+            app:layout_constraintEnd_toStartOf="@+id/label3rdDay"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/labelMonday"
+            app:layout_constraintStart_toEndOf="@+id/label1stDay"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/labelWednesday"
+            android:id="@+id/label3rdDay"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp45"
             android:gravity="center"
-            android:text="@string/calendar_wednesday"
-            app:layout_constraintEnd_toStartOf="@+id/labelThursday"
+            tools:text="@string/calendar_wednesday"
+            app:layout_constraintEnd_toStartOf="@+id/label4thDay"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/labelTuesday"
+            app:layout_constraintStart_toEndOf="@+id/label2ndDay"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/labelThursday"
+            android:id="@+id/label4thDay"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp45"
             android:gravity="center"
-            android:text="@string/calendar_thursday"
-            app:layout_constraintEnd_toStartOf="@+id/labelFriday"
+            tools:text="@string/calendar_thursday"
+            app:layout_constraintEnd_toStartOf="@+id/label5thDay"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/labelWednesday"
+            app:layout_constraintStart_toEndOf="@+id/label3rdDay"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/labelFriday"
+            android:id="@+id/label5thDay"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp45"
             android:gravity="center"
-            android:text="@string/calendar_friday"
-            app:layout_constraintEnd_toStartOf="@+id/labelSaturday"
+            tools:text="@string/calendar_friday"
+            app:layout_constraintEnd_toStartOf="@+id/label6thDay"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/labelThursday"
+            app:layout_constraintStart_toEndOf="@+id/label4thDay"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/labelSaturday"
+            android:id="@+id/label6thDay"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp45"
             android:gravity="center"
-            android:text="@string/calendar_saturday"
-            app:layout_constraintEnd_toStartOf="@+id/labelSunday"
+            tools:text="@string/calendar_saturday"
+            app:layout_constraintEnd_toStartOf="@+id/label7thDay"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/labelFriday"
+            app:layout_constraintStart_toEndOf="@+id/label5thDay"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/labelSunday"
+            android:id="@+id/label7thDay"
             android:layout_width="0dp"
             android:layout_height="@dimen/dp45"
             android:gravity="center"
-            android:text="@string/calendar_sunday"
-
+            tools:text="@string/calendar_sunday"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/labelSaturday"
+            app:layout_constraintStart_toEndOf="@+id/label6thDay"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
