@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.content.ContextCompat
 import pl.domyno.colorfulcalendar.utils.resetToMidnight
 import java.util.*
+import kotlin.collections.ArrayList
 
 class CalendarProperties(val context: Context, typedArray: TypedArray, private val calendarView: CalendarView) {
 
@@ -55,6 +56,16 @@ class CalendarProperties(val context: Context, typedArray: TypedArray, private v
 
     internal var selectedDate: Calendar? = null
     internal var selectedView: View? = null
+
+    // async mode
+    internal var isAsync: Boolean = false
+    internal var eventLoadHandler: AsyncCalendarView.EventLoadHandler? = null
+        set(value) {
+            require(value != null || field == null) { "handler cannot be set to null" }
+            field = value
+        }
+
+    internal val loadedPages: MutableList<Calendar> = ArrayList()
 
     private val firstDateCalendar = Calendar.getInstance().resetToMidnight()
     val initialDate: Calendar

@@ -1,10 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pl.domyno.colorfulcalendar.views.WrappingGridView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:choiceMode="none"
-    android:numColumns="7"
-    android:drawSelectorOnTop="true"
-    android:listSelector="@android:color/transparent"
-    tools:listitem="@layout/calendar_item"/>
+    android:layout_height="wrap_content">
+    <pl.domyno.colorfulcalendar.views.WrappingGridView
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:choiceMode="none"
+        android:numColumns="7"
+        android:drawSelectorOnTop="true"
+        android:listSelector="@android:color/transparent"
+        tools:listitem="@layout/calendar_item"/>
+
+    <RelativeLayout
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="invisible"
+        tools:visibility="visible">
+
+        <ProgressBar
+            android:layout_width="@dimen/dp48"
+            android:layout_height="@dimen/dp48"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center" />
+    </RelativeLayout>
+</FrameLayout>

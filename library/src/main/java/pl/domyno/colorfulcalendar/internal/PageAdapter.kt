@@ -7,14 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.GridView
+import android.widget.ProgressBar
 import androidx.viewpager.widget.PagerAdapter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import pl.domyno.colorfulcalendar.CalendarProperties
 import pl.domyno.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
 import pl.domyno.colorfulcalendar.R
-import pl.domyno.colorfulcalendar.utils.date
-import pl.domyno.colorfulcalendar.utils.month
-import pl.domyno.colorfulcalendar.utils.setDayViewLabel
-import pl.domyno.colorfulcalendar.utils.setSelectedDayViewLabel
+import pl.domyno.colorfulcalendar.utils.*
 import java.util.*
 
 class PageAdapter(private val context: Context, private val properties: CalendarProperties) : PagerAdapter() {
@@ -26,11 +27,22 @@ class PageAdapter(private val context: Context, private val properties: Calendar
 
     @SuppressLint("InflateParams")
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
-        val gridView = LayoutInflater.from(context).inflate(R.layout.calendar_month_grid, null) as GridView
+        val page = LayoutInflater.from(context).inflate(R.layout.calendar_month_grid, null)
+        val gridView = page.findViewById(R.id.gridView) as GridView
+        val progressBar = page.findViewById<View>(R.id.progressBar)
         loadMonthView(gridView, position)
         gridView.setOnItemClickListener(this::onItemClick)
-        container.addView(gridView)
-        return gridView
+        container.addView(page)
+
+        if (properties.isAsync) {
+            gridView.visibility = View.INVISIBLE
+            progressBar.visibility = View.VISIBLE
+            GlobalScope.launch(Dispatchers.Main) {
+                asyncLoadMonthView(gridView, progressBar, position)
+            }
+        }
+
+        return page
     }
 
     private fun onItemClick(parent: AdapterView<*>, view: View, position: Int, @Suppress("UNUSED_PARAMETER") id: Long) {
@@ -73,6 +85,30 @@ class PageAdapter(private val context: Context, private val properties: Calendar
 
         gridView.adapter = DayAdapter(context, properties, days, thisMonth.month)
         gridView.tag = position
+    }
+
+    private suspend fun asyncLoadMonthView(gridView: GridView, progressBar: View, position: Int) {
+        val thisMonth = properties.initialDate.also { it.add(Calendar.MONTH, position - CALENDAR_SIZE / 2) }
+        val nextMonth = (thisMonth.clone() as Calendar).also { it.add(Calendar.MONTH, 1) }
+        val previousMonth = (thisMonth.clone() as Calendar).also { it.add(Calendar.MONTH, -1) }
+
+        try {
+            val deferreds = listOf(previousMonth, thisMonth, nextMonth)
+                    .filter { it !in properties.loadedPages }
+                    .map { it to io { properties.eventLoadHandler?.loadEvents(thisMonth, nextMonth) } }.toMap()
+
+            deferreds.mapValues { it.value.await() }.filterValues { it != null }.forEach {
+                properties.icons = properties.icons.toMutableMap().apply { putAll(it.value!!.first) }
+                properties.dayColors = properties.dayColors.toMutableMap().apply { putAll(it.value!!.second) }
+                properties.loadedPages.add(it.key)
+            }
+        } catch (e: Exception) {
+            properties.eventLoadHandler!!.onLoadError(e, thisMonth, nextMonth)
+        }
+
+        loadMonthView(gridView, position)
+        progressBar.visibility = View.GONE
+        gridView.visibility = View.VISIBLE
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {

@@ -15,7 +15,7 @@ import pl.domyno.colorfulcalendar.utils.month
 import pl.domyno.colorfulcalendar.utils.year
 import java.util.*
 
-class CalendarView : LinearLayout {
+open class CalendarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle) {
     interface OnPageChangeListener {
         fun onChange()
     }
@@ -31,15 +31,7 @@ class CalendarView : LinearLayout {
     private var currentPage = CALENDAR_SIZE / 2
     private lateinit var daysLabels: List<TextView>
 
-    constructor(context: Context) : super(context) {
-        init(null)
-    }
-
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {
-        init(attrs)
-    }
-
-    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {
+    init {
         init(attrs)
     }
 
