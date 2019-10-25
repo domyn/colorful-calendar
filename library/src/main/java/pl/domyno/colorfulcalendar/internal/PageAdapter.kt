@@ -88,7 +88,11 @@ class PageAdapter(private val context: Context, private val properties: Calendar
     }
 
     private suspend fun asyncLoadMonthView(gridView: GridView, progressBar: View, position: Int) {
-        val thisMonth = properties.initialDate.also { it.add(Calendar.MONTH, position - CALENDAR_SIZE / 2) }
+        val thisMonth = properties.initialDate.also {
+            it.add(Calendar.MONTH, position - CALENDAR_SIZE / 2)
+            it.set(Calendar.DAY_OF_MONTH, 1)
+            it.resetToMidnight()
+        }
         val nextMonth = (thisMonth.clone() as Calendar).also { it.add(Calendar.MONTH, 1) }
         val previousMonth = (thisMonth.clone() as Calendar).also { it.add(Calendar.MONTH, -1) }
 
