@@ -2,6 +2,7 @@ package pl.domyno.colorfulcalendar
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.ContextCompat
@@ -46,8 +47,7 @@ class CalendarProperties(val context: Context, typedArray: TypedArray, private v
     var anotherMonthAlpha: Int = typedArray.getColor(R.styleable.CalendarView_anotherMonthAlpha, ContextCompat.getColor(context, R.color.alpha50)) or 0x00FFFFFF
         set(value) {
             field = value or 0x00FFFFFF
-            @Suppress("EXPERIMENTAL_API_USAGE")
-            iconAlpha = field.toUInt().toFloat() / 0xFFFFFFFF
+            iconAlpha = Color.alpha(field) / 256f
         }
 
     var onPreviousPageChangeListener: CalendarView.OnPageChangeListener? = null
@@ -71,8 +71,7 @@ class CalendarProperties(val context: Context, typedArray: TypedArray, private v
     val initialDate: Calendar
         get() = firstDateCalendar.clone() as Calendar
 
-    @Suppress("EXPERIMENTAL_API_USAGE")
-    internal var iconAlpha: Float = anotherMonthAlpha.toUInt().toFloat() / 0xFFFFFFFF
+    internal var iconAlpha: Float = Color.alpha(anotherMonthAlpha) / 256f
         private set
 
     internal val minimumDate = initialDate.also { it.add(Calendar.MONTH, -(CALENDAR_SIZE / 2)) }
