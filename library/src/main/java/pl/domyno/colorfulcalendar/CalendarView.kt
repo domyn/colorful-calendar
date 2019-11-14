@@ -84,9 +84,9 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
     }
 
     private fun setDayLabels() {
-        var dayOfTheWeek = properties.initialDate.firstDayOfWeek
+        var dayOfTheWeek = properties.initialDate.firstDayOfWeek - 1
         daysLabels.forEach {
-            it.text = context.getString(when (dayOfTheWeek) {
+            it.text = context.getString(when (dayOfTheWeek + 1) {
                 Calendar.MONDAY -> R.string.calendar_monday
                 Calendar.TUESDAY -> R.string.calendar_tuesday
                 Calendar.WEDNESDAY -> R.string.calendar_wednesday
