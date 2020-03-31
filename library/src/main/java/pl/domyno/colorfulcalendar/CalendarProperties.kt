@@ -54,7 +54,8 @@ class CalendarProperties(val context: Context, typedArray: TypedArray, private v
     var onNextPageChangeListener: CalendarView.OnPageChangeListener? = null
     var onDayClickListener: CalendarView.OnDayClickListener? = null
 
-    internal var selectedDate: Calendar? = null
+    var selectedDate: Calendar? = null
+        internal set
     internal var selectedView: View? = null
 
     // async mode

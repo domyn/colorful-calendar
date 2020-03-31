@@ -42,7 +42,31 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
         if (!keepCurrentMonth) {
             calendarMonthViewPager.currentItem = CALENDAR_SIZE / 2
             setHeaderName(properties.initialDate)
+            properties.selectedView = null
+            properties.selectedDate = null
         }
+    }
+
+    fun selectDate(date: Calendar, sendEvent: Boolean = false) {
+        var position = CALENDAR_SIZE / 2
+        val month = properties.initialDate.resetToMidnight().also { it.set(Calendar.DAY_OF_MONTH, 1) }
+        while (date < month) {
+            month.add(Calendar.MONTH, -1)
+            position--
+        }
+        val monthEnd = (month.clone() as Calendar).also { it.add(Calendar.MONTH, 1) }
+        while (date >= monthEnd) {
+            monthEnd.add(Calendar.MONTH, 1)
+            position++
+        }
+
+        calendarMonthViewPager.currentItem = position
+        val view = calendarMonthViewPager.findViewWithTag<View>(date.resetToMidnight()) ?: return
+
+        properties.selectedView = view
+        properties.selectedDate = date
+        updateViewLabels(date, view, properties)
+        if (sendEvent) properties.onDayClickListener?.onDayClick(date)
     }
 
     private fun init(attrs: AttributeSet?) {

@@ -31,6 +31,7 @@ class DayAdapter(context: Context,
         val iconViews = listOf(R.id.icon1, R.id.icon2, R.id.icon3, R.id.icon4).map { view.findViewById<ImageView>(it) }
 
         val day = properties.initialDate.also { it.time = getItem(position) }
+        view.tag = day
 
         setIcons(day, iconViews, iconMore)
 

@@ -5,7 +5,7 @@ apply plugin: 'kotlin-android-extensions'
 ext {
     PUBLISH_GROUP_ID = 'pl.domyno'
     PUBLISH_ARTIFACT_ID = 'colorful-calendar'
-    PUBLISH_VERSION = '1.1.4'
+    PUBLISH_VERSION = '1.1.5'
 
     bintrayRepo = 'maven'
     bintrayName = PUBLISH_ARTIFACT_ID
@@ -31,7 +31,7 @@ android {
     defaultConfig {
         def vMajor = 1
         def vMinor = 1
-        def vPatch = 3
+        def vPatch = 5
 
         minSdkVersion 21
         //noinspection OldTargetApi
