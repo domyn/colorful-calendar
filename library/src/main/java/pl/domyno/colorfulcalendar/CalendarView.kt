@@ -35,11 +35,14 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
         init(attrs)
     }
 
-    fun refresh() {
+    @JvmOverloads
+    fun refresh(keepCurrentMonth: Boolean = false) {
         applyStyleProperties()
         calendarMonthViewPager.adapter?.notifyDataSetChanged()
-        calendarMonthViewPager.currentItem = CALENDAR_SIZE / 2
-        setHeaderName(properties.initialDate)
+        if (!keepCurrentMonth) {
+            calendarMonthViewPager.currentItem = CALENDAR_SIZE / 2
+            setHeaderName(properties.initialDate)
+        }
     }
 
     private fun init(attrs: AttributeSet?) {
