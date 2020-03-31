@@ -11,8 +11,8 @@ import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.calendar_view.view.*
 import pl.domyno.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
 import pl.domyno.colorfulcalendar.internal.PageAdapter
-import pl.domyno.colorfulcalendar.utils.month
-import pl.domyno.colorfulcalendar.utils.year
+import pl.domyno.colorfulcalendar.utils.*
+import pl.domyno.colorfulcalendar.utils.suppressExceptions
 import java.util.*
 
 open class CalendarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle) {
@@ -76,6 +76,13 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
 
                         currentPage = position
                     }
+                }
+                val lastDate = properties.selectedDate
+                val lastView = properties.selectedView
+                if (lastView != null && lastDate != null && lastDate.date != properties.initialDate.date) {
+                    suppressExceptions { setDayViewLabel(lastDate, lastView, properties, lastDate.month) }
+                    properties.selectedDate = null
+                    properties.selectedView = null
                 }
             }
         })
