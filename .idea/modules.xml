@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/colorful-calendar.iml" filepath="$PROJECT_DIR$/colorful-calendar.iml" />
-      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
-      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/colorful-calendar.iml" filepath="$PROJECT_DIR$/colorful-calendar.iml" group="colorful-calendar" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" group="colorful-calendar/library" />
+      <module fileurl="file://$PROJECT_DIR$/sample/sample.iml" filepath="$PROJECT_DIR$/sample/sample.iml" group="colorful-calendar/sample" />
     </modules>
   </component>
 </project>
