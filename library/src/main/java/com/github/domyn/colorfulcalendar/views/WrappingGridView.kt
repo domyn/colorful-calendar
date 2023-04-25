@@ -1,4 +1,4 @@
-package pl.domyno.colorfulcalendar.views
+package com.github.domyn.colorfulcalendar.views
 
 import android.content.Context
 import android.util.AttributeSet

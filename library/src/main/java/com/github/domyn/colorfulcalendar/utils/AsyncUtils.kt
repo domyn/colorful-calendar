@@ -1,4 +1,4 @@
-package pl.domyno.colorfulcalendar.utils
+package com.github.domyn.colorfulcalendar.utils
 
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

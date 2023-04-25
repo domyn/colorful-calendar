@@ -1,4 +1,4 @@
-package pl.domyno.colorfulcalendar
+package com.github.domyn.colorfulcalendar
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,11 +8,10 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.viewpager.widget.ViewPager
-import kotlinx.android.synthetic.main.calendar_view.view.*
-import pl.domyno.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
-import pl.domyno.colorfulcalendar.internal.PageAdapter
-import pl.domyno.colorfulcalendar.utils.*
-import pl.domyno.colorfulcalendar.utils.suppressExceptions
+import com.github.domyn.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
+import com.github.domyn.colorfulcalendar.databinding.CalendarViewBinding
+import com.github.domyn.colorfulcalendar.internal.PageAdapter
+import com.github.domyn.colorfulcalendar.utils.*
 import java.util.*
 
 open class CalendarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : LinearLayout(context, attrs, defStyle) {
@@ -31,6 +30,8 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
     private var currentPage = CALENDAR_SIZE / 2
     private lateinit var daysLabels: List<TextView>
 
+    private val binding = CalendarViewBinding.inflate(LayoutInflater.from(context), this, true)
+
     init {
         init(attrs)
     }
@@ -38,15 +39,17 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
     @JvmOverloads
     fun refresh(keepCurrentMonth: Boolean = false) {
         applyStyleProperties()
-        calendarMonthViewPager.adapter?.notifyDataSetChanged()
+        binding.calendarMonthViewPager.adapter?.notifyDataSetChanged()
         if (!keepCurrentMonth) {
-            calendarMonthViewPager.currentItem = CALENDAR_SIZE / 2
+            binding.calendarMonthViewPager.currentItem = CALENDAR_SIZE / 2
             setHeaderName(properties.initialDate)
             properties.selectedView = null
             properties.selectedDate = null
         }
     }
 
+    @Suppress("unused")
+    @JvmOverloads
     fun selectDate(date: Calendar, sendEvent: Boolean = false) {
         var position = CALENDAR_SIZE / 2
         val month = properties.initialDate.resetToMidnight().also { it.set(Calendar.DAY_OF_MONTH, 1) }
@@ -60,8 +63,8 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
             position++
         }
 
-        calendarMonthViewPager.currentItem = position
-        val view = calendarMonthViewPager.findViewWithTag<View>(date.resetToMidnight()) ?: return
+        binding.calendarMonthViewPager.currentItem = position
+        val view = binding.calendarMonthViewPager.findViewWithTag<View>(date.resetToMidnight()) ?: return
 
         properties.selectedView = view
         properties.selectedDate = date
@@ -74,13 +77,14 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
         properties = CalendarProperties(context, typedArray, this)
         typedArray.recycle()
 
-        LayoutInflater.from(context).inflate(R.layout.calendar_view, this)
-        daysLabels = listOf(label1stDay, label2ndDay, label3rdDay, label4thDay, label5thDay, label6thDay, label7thDay)
+        daysLabels = binding.run {
+            listOf(label1stDay, label2ndDay, label3rdDay, label4thDay, label5thDay, label6thDay, label7thDay)
+        }
 
-        previousButton.setOnClickListener(this::onPreviousButtonClick)
-        nextButton.setOnClickListener(this::onNextButtonClick)
-        calendarMonthViewPager.adapter = PageAdapter(context, properties)
-        calendarMonthViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+        binding.previousButton.setOnClickListener(this::onPreviousButtonClick)
+        binding.nextButton.setOnClickListener(this::onNextButtonClick)
+        binding.calendarMonthViewPager.adapter = PageAdapter(context, properties)
+        binding.calendarMonthViewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {}
 
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
@@ -88,8 +92,8 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
             override fun onPageSelected(position: Int) {
                 val month = properties.initialDate.also { it.add(Calendar.MONTH, position - CALENDAR_SIZE / 2) }
                 when {
-                    month < properties.minimumDate -> calendarMonthViewPager.currentItem = position + 1
-                    month > properties.maximumDate -> calendarMonthViewPager.currentItem = position - 1
+                    month < properties.minimumDate -> binding.calendarMonthViewPager.currentItem = position + 1
+                    month > properties.maximumDate -> binding.calendarMonthViewPager.currentItem = position - 1
                     else -> {
                         setHeaderName(month)
                         setButtonLocks(month)
@@ -114,7 +118,7 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
         applyStyleProperties()
         setHeaderName(properties.initialDate)
         setDayLabels()
-        calendarMonthViewPager.currentItem = currentPage
+        binding.calendarMonthViewPager.currentItem = currentPage
     }
 
     private fun setDayLabels() {
@@ -137,23 +141,23 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
     private fun setButtonLocks(month: Calendar) {
         val previousMonth = (month.clone() as Calendar).also { it.add(Calendar.MONTH, -1) }
         val nextMonth = (month.clone() as Calendar).also { it.add(Calendar.MONTH, 1) }
-        previousButton.isEnabled = previousMonth >= properties.minimumDate
-        nextButton.isEnabled = nextMonth <= properties.maximumDate
+        binding.previousButton.isEnabled = previousMonth >= properties.minimumDate
+        binding.nextButton.isEnabled = nextMonth <= properties.maximumDate
     }
 
     @SuppressLint("SetTextI18n")
     private fun setHeaderName(calendar: Calendar) {
-        currentDateLabel.text = context.resources.getStringArray(R.array.calendar_months_array)[calendar.month] + " " + calendar.year
+        binding.currentDateLabel.text = context.resources.getStringArray(R.array.calendar_months_array)[calendar.month] + " " + calendar.year
     }
 
     private fun applyStyleProperties() {
         // header
-        calendarHeader.setBackgroundColor(properties.headerBackgroundColor)
-        previousButton.setImageDrawable(properties.previousButtonSrc)
-        nextButton.setImageDrawable(properties.nextButtonSrc)
-        listOf(previousButton, nextButton).forEach { it.setColorFilter(properties.headerButtonTint) }
-        currentDateLabel.setTextColor(properties.headerTextColor)
-        separator.setBackgroundColor(properties.separatorColor)
+        binding.calendarHeader.setBackgroundColor(properties.headerBackgroundColor)
+        binding.previousButton.setImageDrawable(properties.previousButtonSrc)
+        binding.nextButton.setImageDrawable(properties.nextButtonSrc)
+        listOf(binding.previousButton, binding.nextButton).forEach { it.setColorFilter(properties.headerButtonTint) }
+        binding.currentDateLabel.setTextColor(properties.headerTextColor)
+        binding.separator.setBackgroundColor(properties.separatorColor)
 
         // labels
         this.setBackgroundColor(properties.backgroundColor)
@@ -164,7 +168,7 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
         val month = properties.initialDate.also { it.add(Calendar.MONTH, currentPage - 1 - CALENDAR_SIZE / 2) }
         setButtonLocks(month)
         currentPage--
-        calendarMonthViewPager.currentItem = currentPage
+        binding.calendarMonthViewPager.currentItem = currentPage
         properties.onPreviousPageChangeListener?.onChange()
         setHeaderName(properties.initialDate.also { it.add(Calendar.MONTH, currentPage - CALENDAR_SIZE / 2) })
     }
@@ -173,7 +177,7 @@ open class CalendarView @JvmOverloads constructor(context: Context, attrs: Attri
         val month = properties.initialDate.also { it.add(Calendar.MONTH, currentPage + 1 - CALENDAR_SIZE / 2) }
         setButtonLocks(month)
         currentPage++
-        calendarMonthViewPager.currentItem = currentPage
+        binding.calendarMonthViewPager.currentItem = currentPage
         properties.onNextPageChangeListener?.onChange()
         setHeaderName(properties.initialDate.also { it.add(Calendar.MONTH, currentPage - CALENDAR_SIZE / 2) })
     }

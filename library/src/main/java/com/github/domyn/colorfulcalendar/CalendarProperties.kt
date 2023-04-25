@@ -1,4 +1,4 @@
-package pl.domyno.colorfulcalendar
+package com.github.domyn.colorfulcalendar
 
 import android.content.Context
 import android.content.res.TypedArray
@@ -6,7 +6,7 @@ import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.core.content.ContextCompat
-import pl.domyno.colorfulcalendar.utils.resetToMidnight
+import com.github.domyn.colorfulcalendar.utils.resetToMidnight
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -44,7 +44,10 @@ class CalendarProperties(val context: Context, typedArray: TypedArray, private v
     var separatorColor: Int =
             typedArray.getColor(R.styleable.CalendarView_separatorColor, ContextCompat.getColor(context, android.R.color.black))
 
-    var anotherMonthAlpha: Int = typedArray.getColor(R.styleable.CalendarView_anotherMonthAlpha, ContextCompat.getColor(context, R.color.alpha50)) or 0x00FFFFFF
+    var anotherMonthAlpha: Int = typedArray.getColor(
+        R.styleable.CalendarView_anotherMonthAlpha, ContextCompat.getColor(context,
+            R.color.alpha50
+        )) or 0x00FFFFFF
         set(value) {
             field = value or 0x00FFFFFF
             iconAlpha = Color.alpha(field) / 256f

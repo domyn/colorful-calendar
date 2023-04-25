@@ -1,7 +1,7 @@
-package pl.domyno.colorfulcalendar.utils
+package com.github.domyn.colorfulcalendar.utils
 
 import android.view.View
-import pl.domyno.colorfulcalendar.CalendarProperties
+import com.github.domyn.colorfulcalendar.CalendarProperties
 import java.lang.Exception
 import java.util.*
 

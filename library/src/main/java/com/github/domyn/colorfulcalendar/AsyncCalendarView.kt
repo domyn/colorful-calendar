@@ -1,10 +1,9 @@
-package pl.domyno.colorfulcalendar
+package com.github.domyn.colorfulcalendar
 
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AsyncCalendarView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyle: Int = 0) : CalendarView(context, attrs, defStyle) {
     interface EventLoadHandler {
@@ -22,6 +21,7 @@ class AsyncCalendarView @JvmOverloads constructor(context: Context, attrs: Attri
         properties.eventLoadHandler = eventLoadHandler
     }
 
+    @Suppress("unused")
     fun clearEvents() {
         properties.loadedPages.clear()
         properties.icons = emptyMap()

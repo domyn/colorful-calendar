@@ -1,4 +1,4 @@
-package pl.domyno.colorfulcalendar.utils
+package com.github.domyn.colorfulcalendar.utils
 
 import java.util.*
 

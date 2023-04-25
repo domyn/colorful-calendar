@@ -1,4 +1,4 @@
-package pl.domyno.colorfulcalendar.internal
+package com.github.domyn.colorfulcalendar.internal
 
 import android.content.Context
 import android.graphics.PorterDuff
@@ -8,10 +8,13 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import pl.domyno.colorfulcalendar.CalendarProperties
-import pl.domyno.colorfulcalendar.R
-import pl.domyno.colorfulcalendar.utils.*
+import com.github.domyn.colorfulcalendar.CalendarProperties
+import com.github.domyn.colorfulcalendar.R
+import com.github.domyn.colorfulcalendar.utils.date
+import com.github.domyn.colorfulcalendar.utils.dayOfMonth
+import com.github.domyn.colorfulcalendar.utils.month
+import com.github.domyn.colorfulcalendar.utils.setDayViewLabel
+import com.github.domyn.colorfulcalendar.utils.setTodayViewLabel
 import java.util.*
 
 
@@ -30,7 +33,7 @@ class DayAdapter(context: Context,
         val iconMore = view.findViewById<ImageView>(R.id.iconMore)
         val iconViews = listOf(R.id.icon1, R.id.icon2, R.id.icon3, R.id.icon4).map { view.findViewById<ImageView>(it) }
 
-        val day = properties.initialDate.also { it.time = getItem(position) }
+        val day = properties.initialDate.also { it.time = getItem(position)!! }
         view.tag = day
 
         setIcons(day, iconViews, iconMore)

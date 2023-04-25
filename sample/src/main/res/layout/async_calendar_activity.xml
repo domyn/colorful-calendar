@@ -8,7 +8,7 @@
     android:background="@android:color/background_dark"
     tools:context=".CalendarActivity">
 
-    <pl.domyno.colorfulcalendar.AsyncCalendarView
+    <com.github.domyn.colorfulcalendar.AsyncCalendarView
         android:id="@+id/asyncCalendarView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

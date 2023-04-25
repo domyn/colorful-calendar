@@ -1,4 +1,4 @@
-package pl.domyno.colorfulcalendar.internal
+package com.github.domyn.colorfulcalendar.internal
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,15 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.GridView
-import android.widget.ProgressBar
 import androidx.viewpager.widget.PagerAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import pl.domyno.colorfulcalendar.CalendarProperties
-import pl.domyno.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
-import pl.domyno.colorfulcalendar.R
-import pl.domyno.colorfulcalendar.utils.*
+import com.github.domyn.colorfulcalendar.CalendarProperties
+import com.github.domyn.colorfulcalendar.CalendarProperties.Companion.CALENDAR_SIZE
+import com.github.domyn.colorfulcalendar.R
+import com.github.domyn.colorfulcalendar.utils.io
+import com.github.domyn.colorfulcalendar.utils.month
+import com.github.domyn.colorfulcalendar.utils.resetToMidnight
+import com.github.domyn.colorfulcalendar.utils.updateViewLabels
 import java.util.*
 
 class PageAdapter(private val context: Context, private val properties: CalendarProperties) : PagerAdapter() {
@@ -71,7 +73,7 @@ class PageAdapter(private val context: Context, private val properties: Calendar
         val days = (0 until cells).map { i ->
             (calendar.clone() as Calendar).also {
                 it.add(Calendar.DAY_OF_MONTH, i)
-            }.time!!
+            }.time
         }
 
         gridView.adapter = DayAdapter(context, properties, days, thisMonth.month)
@@ -89,8 +91,8 @@ class PageAdapter(private val context: Context, private val properties: Calendar
 
         try {
             val deferreds = listOf(previousMonth, thisMonth, nextMonth)
-                    .filter { it !in properties.loadedPages }
-                    .map { it to io { properties.eventLoadHandler?.loadEvents(thisMonth, nextMonth) } }.toMap()
+                .filter { it !in properties.loadedPages }
+                .associateWith { io { properties.eventLoadHandler?.loadEvents(thisMonth, nextMonth) } }
 
             deferreds.mapValues { it.value.await() }.filterValues { it != null }.forEach {
                 properties.icons = properties.icons.toMutableMap().apply { putAll(it.value!!.first) }
